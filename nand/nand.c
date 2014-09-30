@@ -1,16 +1,18 @@
 
 #include "../header/qbool.h"
 #include <stdio.h>
-qbool nand(qbool a, qbool b){
+qboolP qnand(qboolP a, qboolP b, qboolP out){
 
-if(a && b) 
-  return(F);
-return(T);
+  if((*a) && (*b))
+    *(out) = F;
+  else
+    *(out) = T;
+  return(out);
  
 }
 
-void printqbool(qbool a){
+void printqbool(qboolP a){
  
-  if(a == T) printf("1");
+  if((*a) == T) printf("1");
   else       printf("0");
 }

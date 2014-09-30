@@ -2,51 +2,55 @@
 #include "../header/gates.h"
 #include <stdio.h>
 
+extern qboolP qnand(qboolP a, qboolP b, qboolP out);
+extern void printqbool(qboolP a);
 
-void printnand(qbool a, qbool b, qbool c);
-void printgate(qbool a, qbool b, qbool c, char * str);
-void printmux(qbool s, qbool a, qbool b, qbool out);
-void printdemux(qbool in, qbool s1, qbool s2, qbool *out);
+void printnand(qboolP a, qboolP b, qboolP c);
+void printgate(qboolP a, qboolP b, qboolP c, char * str);
+void printmux(qboolP s, qboolP a, qboolP b, qboolP out);
+void printdemux(qboolP in, qboolP s1, qboolP s2, qboolP out);
 int main(void)
 {
   //qbool a=T, b=F; //define two booleans
   qbool c, i=F, j=F, s=F;
-  
+  qboolP cp = &c, ip=&i, jp=&j, sp=&s;
   printf("****************** Testing NAND *************************\n");
   for(i=F; i<=T; i++){
     for(j=F; j<=T; j++){
-      c = nand(i,j);
-      printgate(i,j,c, "NAND");
+      cp = qnand(ip,jp, cp);
+      printgate(ip,jp,cp, "NAND");
       
       
     }
   }
   printf("**************** Testing AND **********************\n");
-
+  
   for(i=F; i<=T; i++){
     for(j=F; j<=T; j++){
-      c = qand(i,j);
-      printgate(i,j,c, "AND");
+      cp = qand(ip,jp, cp);
+      printgate(ip,jp,cp, "AND");
       
       
     }
   }
+  
   printf("**************** Testing OR *********************\n");
 
   for(i=F; i<=T; i++){
     for(j=F; j<=T; j++){
-      c = qor(i,j);
-      printgate(i,j,c, "OR");
+      cp = qor(ip,jp,cp);
+      printgate(ip,jp,cp, "OR");
       
       
     }
   }
+  
   printf("**************** Testing XOR ***********************\n");
 
   for(i=F; i<=T; i++){
     for(j=F; j<=T; j++){
-      c = qxor(i,j);
-      printgate(i,j,c, "XOR");
+      cp = qxor(ip,jp,cp);
+      printgate(ip,jp,cp, "XOR");
       
       
     }
@@ -59,8 +63,8 @@ int main(void)
   for(s=F; s<=T; s++){
    for(i=F; i<=T; i++){
     for(j=F; j<=T; j++){
-      c = qmux(s,i,j);
-      printmux(s,i,j,c);
+      cp = qmux(sp,ip,jp,cp);
+      printmux(sp,ip,jp,cp);
         
     }
    }
@@ -72,8 +76,8 @@ int main(void)
   for(s=F; s<=T; s++){
    for(i=F; i<=T; i++){
     for(j=F; j<=T; j++){
-      qdemux(s,i,j, out);
-      printdemux(s,i,j, out);
+      qdemux(sp,ip,jp, out);
+      printdemux(sp,ip,jp, out);
         
     }
    }
@@ -81,28 +85,32 @@ int main(void)
  
   printf("\n *************** TESTING DONE ************************ \n");
   
+  return(0);
 }
+ 
 
-void printnand(qbool a, qbool b, qbool c){
+void printnand(qboolP a, qboolP b, qboolP c){
   printqbool(a); printf(" NAND "); printqbool(b); printf(" = "); 
   printqbool(c); printf("\n");  // call another function from libnand.
   
 }
-void printgate(qbool a, qbool b, qbool c, char * str){
+void printgate(qboolP a, qboolP b, qboolP c, char * str){
   printqbool(a); printf(" %s ", str); printqbool(b); printf(" = "); 
   printqbool(c); printf("\n");  // call another function from libnand.
   
 }
-void printmux(qbool s, qbool a, qbool b, qbool out){
+
+void printmux(qboolP s, qboolP a, qboolP b, qboolP out){
   printqbool(s); printf(" ");printqbool(a); printf(" "); printqbool(b); printf(" = "); 
   printqbool(out); printf("\n");  // call another function from libnand.
   
 }
 
-void printdemux(qbool in, qbool s1, qbool s2, qbool* out){
+void printdemux(qboolP in, qboolP s1, qboolP s2, qboolP out){
   printqbool(in); printf(" ");printqbool(s1); printf(" "); printqbool(s2); printf(" = "); 
-  printqbool(out[0]); printf(" ");printqbool(out[1]);printf(" ");printqbool(out[2]);printf(" ");printqbool(out[3]);
+  printqbool(&out[0]); printf(" ");printqbool(&out[1]);printf(" ");printqbool(&out[2]);printf(" ");printqbool(&out[3]);
   printf("\n");  // call another function from libnand.
   
 }
+
 

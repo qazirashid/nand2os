@@ -1,13 +1,13 @@
 #ifndef QGATES
 #define QGATES
 #include "qbool.h"
-
-extern qbool qnot(qbool a);
-extern qbool qand(qbool a, qbool b);
-extern qbool qor(qbool a, qbool b);
-extern qbool qnor(qbool a, qbool b);
-extern qbool qxor(qbool a, qbool b);
-extern qbool qxnor(qbool a, qbool b);
-extern qbool qmux (qbool s, qbool a, qbool b);
-
+ qboolP qnot(qboolP in, qboolP out);
+ qboolP qand(qboolP in1, qboolP in2, qboolP out);
+ qboolP qor(qboolP a, qboolP b, qboolP out);
+ qboolP qnor(qboolP a, qboolP b, qboolP out);
+ qboolP qxor(qboolP a, qboolP b, qboolP out);
+ qboolP qxnor(qboolP a, qboolP b, qboolP out);
+ qboolP qmux (qboolP in1, qboolP in2, qboolP s, qboolP out);
+ qboolP qdemux(qboolP in, qboolP s1, qboolP s2, qboolP out);
+ qboolP qfulladder(qboolP in1, qboolP in2, qboolP carryin, qboolP sumout, qboolP carryout);
 #endif
