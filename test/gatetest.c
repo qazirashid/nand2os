@@ -9,10 +9,12 @@ void printnand(qboolP a, qboolP b, qboolP c);
 void printgate(qboolP a, qboolP b, qboolP c, char * str);
 void printmux(qboolP s, qboolP a, qboolP b, qboolP out);
 void printdemux(qboolP in, qboolP s1, qboolP s2, qboolP out);
+
+
 int main(void)
 {
   //qbool a=T, b=F; //define two booleans
-  qbool c, i=F, j=F, s=F;
+  qbool c, i=F, j=F, s=F; qbool out[4];
   qboolP cp = &c, ip=&i, jp=&j, sp=&s;
   printf("****************** Testing NAND *************************\n");
   for(i=F; i<=T; i++){
@@ -59,30 +61,51 @@ int main(void)
   //c = nand(a,b); //will call a function declared in qbool.h and defined in libnand.so
   
   printf("************** Testing Mux************************\n");
-  
+  printf("\nA\tB\tSelect\t|\tOut\n");
+  printf("--------------------------------------------- \n");  
+ 
   for(s=F; s<=T; s++){
    for(i=F; i<=T; i++){
     for(j=F; j<=T; j++){
       cp = qmux(sp,ip,jp,cp);
-      printmux(sp,ip,jp,cp);
+      printf("%d\t%d\t%d\t|\t%d\n",s,i,j,*cp);
         
     }
    }
   }
 
  printf("************** Testing Demux************************\n");
-  
- qbool out[4];
+ 
+ 
+ printf("\nA\tS1\tS2\t|\tSO1\tO2\tO3\tO4\n");
+  printf("-------------------------------------------- \n"); 
+ //qbool out[4];
   for(s=F; s<=T; s++){
    for(i=F; i<=T; i++){
     for(j=F; j<=T; j++){
       qdemux(sp,ip,jp, out);
-      printdemux(sp,ip,jp, out);
+      printf("%d\t%d\t%d\t|\t%d\t%d\t%d\t%d\n",s,i,j,out[0],out[1],out[2],out[3]);
+      //printdemux(sp,ip,jp, out);
         
     }
    }
   }
  
+  printf("************** Testing Full Adder************************\n");
+ 
+  printf("\nA\tB\tCarry\t|\tSum\tCarry out\n");
+  printf("----------------------------------------------------- \n"); 
+  
+  for(s=F; s<=T; s++){
+   for(i=F; i<=T; i++){
+    for(j=F; j<=T; j++){
+      qfulladder(sp,ip,jp, &out[0], &out[1]);
+      printf("%d\t%d\t%d\t|\t%d\t%d\n",s,i,j,out[0],out[1]);
+      
+        
+    }
+   }
+  }
   printf("\n *************** TESTING DONE ************************ \n");
   
   return(0);
@@ -114,3 +137,5 @@ void printdemux(qboolP in, qboolP s1, qboolP s2, qboolP out){
 }
 
 
+
+  

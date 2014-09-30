@@ -84,6 +84,13 @@ qboolP qdemux(qboolP in, qboolP s1, qboolP s2, qboolP out){
 }
 
 qboolP qfulladder(qboolP in1, qboolP in2, qboolP carryin, qboolP sum, qboolP carryout){
- 
+  
+  qbool r,s, x; qboolP rp=&r, sp=&s, xp=&x;
+  
+  qxor(in1,in2,xp);
+  qxor(xp,carryin,sum);
+  qand(xp,carryin,rp);
+  qand(in1,in2,sp);
+  qor(rp,sp,carryout);
   return(carryout);
 }
