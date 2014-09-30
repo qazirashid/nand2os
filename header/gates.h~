@@ -1,0 +1,8 @@
+#ifndef QGATES
+#define QGATES
+#include "qbool.h"
+
+extern void qnot( qbool a);
+extern void qand( qbool a, qbool b);
+
+#endif
