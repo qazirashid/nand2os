@@ -1,5 +1,7 @@
 #ifndef QBOOL
 #define QBOOL
+
+
 enum Qbool{ F=0, T=1
 };
 
@@ -14,5 +16,6 @@ qboolP qnand(qboolP a, qboolP b, qboolP out);
 // gcc -Lpath/to/sharedlib -Wall -o outfile infile.c -lnand
 void printqbool(qboolP a);
  
+
 
 #endif
